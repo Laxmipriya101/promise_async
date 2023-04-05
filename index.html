@@ -1,0 +1,278 @@
+<html lang="en">
+  <head>
+    <title>promise</title>
+  </head>
+  <body>
+    <h1 style="color: red">Promise Async Await</h1>
+    <div>
+      Q1.Write one example explaining how you can write a callback function.
+    </div>
+    <pre style="color: blue">
+      setTimeout(() => {
+        setTimeout(() => {
+          setTimeout(() => {
+            console.log("EA21");
+          }, 3000);
+        }, 2000);
+      }, 1000);
+    </pre>
+    <p style="color: red">
+      <span style="color: blue">Explanation :</span> Here we assume that EA21 is
+      print after 6 seconds. beacuse 1st setTimeout wait for 1 sec , 2nd
+      setTimeout wait for 2 sec, and last setTimeout wait for 3 sec so , total
+      waitting time is 6 sec.
+    </p>
+    <hr />
+
+    <div>
+      <p>
+        Q2.Write a callback function to print numbers from 1 to 7, in which 1
+        should be printed after 1 sec, 2 should be printed after 2 sec, 3 should
+        be printed after 3 sec, and so on.
+      </p>
+
+      Numbers 1 2 3 4 5 6 7
+    </div>
+    <pre style="color: blue">
+      let count=0;
+      setTimeout(() => {
+        console.log(++count);
+        setTimeout(() => {
+          console.log(++count);
+          setTimeout(() => {
+            console.log(++count);
+            setTimeout(() => {
+              console.log(++count);
+              setTimeout(()=> {
+                console.log(++count);
+                setTimeout(()=> {
+                  console.log(++count);
+                  setTimeout(() =>{
+                    console.log(++count);
+                  }, 7000);
+                }, 6000);
+              }, 5000);
+            }, 4000);
+          }, 3000);
+        }, 2000);
+      }, 1000);
+    </pre>
+    <hr />
+    <div>
+      <p>
+        Q3."Write the promise function to print numbers from 1 to 7, in which 1
+        should be printed after 1 sec, 2 should be printed after 2 sec, 3 should
+        be printed after 3 sec, and so on.
+      </p>
+      <p>Numbers 1 2 3 4 5 6 7"</p>
+    </div>
+    <pre style="color: blue">
+      const printNumber =(time, func) => {
+        return new Promise((resolve, reject) => {
+          if(func) {
+            setTimeout(() => {
+              resolve(func());
+            }, time)
+          }
+          else{
+            reject('Put a valid Number');
+          }
+        })
+      }
+      printNumber(0, () => console.log("Number printed"))
+      .then(() => {
+        return printNumber(1000, () => console.log('1'))
+      })
+      .then(() => {
+        return printNumber(2000, () => console.log('2'))
+      })
+      .then(() => {
+        return printNumber(3000, () => console.log('3'))
+      })
+      .then(() => {
+        return printNumber(4000, () => console.log('4'))
+      })
+      .then(() => {
+        return printNumber(5000, () => console.log('5'))
+      })
+      .then(() => {
+        return printNumber(6000, () => console.log('6'))
+      })
+      .then(() => {
+        return printNumber(7000, () => console.log('7'))
+      })
+    </pre>
+    <hr />
+
+    <div>
+      <p>
+        Q4."Create a promise function accepting an argument, if yes is passed to
+        the function then it should go to resolved state and print Promise
+        Resolved, and if nothing is passed then it should go to reject the state
+        and catch the error and print Promise Rejected "
+      </p>
+    </div>
+    <pre style="color: blue">
+      function prime(num){
+        return new Promise((resolve, reject) =&gt {
+          let count=0;
+          for(let i=0; i&ltnum/2; i++){
+            if(num%i===0){
+              count++;
+            }
+          }
+          if(count===1){
+            resolve("Number is prime");
+          }
+          else{
+            reject("Number is not prime")
+          }
+        })
+      }
+      prime(17)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err))
+      prime(20)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err))
+    </pre>
+    <hr />
+    <div>
+      <p>Q5.Create examples to explain callback function</p>
+    </div>
+    <p>A callback is a function passed as an argument to another function.</p>
+    <pre style="color: blue">
+      setTimeout(() => {
+        setTimeout(() => {
+          setTimeout(() => {
+            console.log("EA21");
+          }, 3000);
+        }, 2000);
+      }, 1000);
+    </pre>
+    <p style="color: red">
+      <span style="color: blue">Explanation : </span>Here we assume that EA21 is
+      print after 6 seconds. beacuse 1st setTimeout wait for 1 sec , 2nd
+      setTimeout wait for 2 sec, and last setTimeout wait for 3 sec so , total
+      waitting time is 6 sec.
+    </p>
+    <hr />
+    <div>
+      <p>Q6.Create examples to explain callback hell function</p>
+    </div>
+    <pre style="color: blue">
+      function AlphaFunc(alpha, timeout, callBack){
+       setTimeout(() => {
+         console.log(alpha);
+         callBack()
+        }, timeout);
+      }
+      function Abc(){
+        AlphaFunc("A", 2000, () => {
+          AlphaFunc("E", 3000, ()=> {
+             AlphaFunc("I", 1000, ()=> {
+                AlphaFunc("O", 6000, ()=> {
+                  AlphaFunc("U", 5000,()=>{})
+                })
+            })
+          })
+        })
+      }
+      Abc();
+    </pre>
+    <p style="color: red">
+      <span style="color: blue">Callback Hell:</span> The phenomenon which
+      happens when we nest multiple callbacks within a function is called a
+      callback hell. The shape of the resulting code structure resembles a
+      pyramid and hence callback hell is also called the “pyramid of the doom”.
+      It makes the code very difficult to understand and maintain.
+    </p>
+    <hr />
+    <div>
+      <p>Q7.Create examples to explain promises function</p>
+    </div>
+    <p style="color: red">
+      The Promise object represents the eventual completion (or failure) of an
+      asynchronous operation and its resulting value.
+    </p>
+
+    <pre style="color: blue">
+      const promiseFunc = new Promise((resolve, reject) => {
+        resolve(10);
+        reject(13);
+      })
+      promiseFunc
+      .then((x) => console.log(x))
+      .catch((err)=> console.log(err));
+    </pre>
+    <hr />
+
+    <div>
+      <p>Q8.Create examples to explain async await function</p>
+    </div>
+    <pre style="color: blue">
+      function createOrder() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log("createOrder");
+            resolve();
+          }, 1000);
+        });
+      }
+      function paymentRequest() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log("payment");
+            resolve();
+          }, 1000);
+        });
+      }
+
+      async function orderPlaced() {
+        try{
+          console.log("inside try block");
+          await createOrder();
+          await paymentRequest();
+          console.log("after waiting");
+        }catch(err){
+          console.log("inside catch block");
+        }finally{
+          console.log("inside finally block");
+        }
+      }
+      orderPlaced();
+    </pre>
+    <p style="color: red">
+      <span style="color: blue">Explanation:</span>In async await function when
+      we are Create a function before we write the async and it has three block
+      (1)try , (2) catch, (3)finally. if the function is resolve then call the
+      try block , if the function is reject then call the catch block, if both
+      function are not call then finally block is executed. here we also use the
+      exception handling function which is await. await is wait for the code
+      executing.
+    </p>
+    <hr />
+    <div>
+      <p>Q9.Create examples to explain promise.all function</p>
+    </div>
+    <p style="color: red">
+      The Promise.all() static method takes an iterable of promises as input and
+      returns a single Promise. This returned promise fulfills when all of the
+      input's promises fulfill (including when an empty iterable is passed),
+      with an array of the fulfillment values. It rejects when any of the
+      input's promises rejects, with this first rejection reason.
+    </p>
+    <pre style="color: blue">
+       const promise1 = Promise.resolve(3);
+       const promise2 = 42;
+       const promise3 = new Promise((resolve, reject) => {
+         setTimeout(resolve, 100, 'foo');
+        });
+
+        Promise.all([promise1, promise2, promise3]).then((values) => {
+          console.log(values);
+        });
+    </pre>
+    <script src="./index.js"></script>
+  </body>
+</html>
